@@ -2,6 +2,12 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 
 ## Available Scripts
 
+## The file src/integration/SpaceshipClient.js
+Changes the first line in case your backend API endpoint is different:
+```
+const SPACESHIP_SERVICE_URL = 'http://localhost:8080/xl-spaceship/user/game/';
+```
+
 In the project directory, you can run:
 
 ### `npm start`
