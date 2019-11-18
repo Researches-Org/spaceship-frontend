@@ -7,9 +7,42 @@ import {
     CHALLENGE_FAILED,
     SALVO_SUCCEED,
     SALVO_FAILED,
+    CLEAR_STATE,
+    LIST_GAMES_SUCCEED,
+    LIST_GAMES_FAILED,
 } from './types';
 
 import SpaceshipClient from '../integration/SpaceshipClient';
+
+function listGamesSucceed(games) {
+    return {
+        type: LIST_GAMES_SUCCEED,
+        data: games,
+    }
+};
+
+function listGamesFailed(error) {
+    return {
+        type: LIST_GAMES_FAILED,
+        data: error,
+    }
+};
+
+export const listGamesAction = () => {
+
+    return (dispatch) => {
+
+        SpaceshipClient.listGames(function (games) {
+            dispatch(listGamesSucceed(games));
+
+        },
+        function (error) {
+           dispatch(listGamesFailed(error));
+        });
+
+    };
+
+};
 
 function getGameSucceed(game) {
     return {
@@ -127,4 +160,16 @@ export const autopilotAction = (gameId) => {
 
     };
 
+};
+
+function clearState() {
+    return {
+        type: CLEAR_STATE,
+    };
+};
+
+export const clearStateAction = () => {
+    return (dispatch) => {
+        dispatch(clearState());
+    };
 };

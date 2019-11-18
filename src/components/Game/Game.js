@@ -1,34 +1,63 @@
 import React, {Component} from 'react';
 import Board from './Board';
+import { Label, List } from 'semantic-ui-react';
 
 export default class Game extends Component {
+
+    getPlayerTurnIdOrWinner = () => {
+        if (this.props.game.game.player_turn) {
+            return this.props.game.game.player_turn;
+        } else {
+            return this.props.game.game.won;
+        }
+    }
+
+    getPlayerTurnOrWinnerLable = () => {
+        if (this.props.game.game.player_turn) {
+            return 'Player Turn Id';
+        } else {
+            return 'Winner Id';
+        } 
+    }
 
     render() {
 
         if (!this.props.game) {
 
             return (
-                <div>No game</div>
+                ''
             );
 
         }
-//12177ad0-034e-4613-9e9d-dab0d45ecdf0
-    return (
-            <div>
-                <span>Player turn</span>
-                <div>{this.props.game.game.player_turn}</div>
-                
-                <span>Self</span>
-                <div>{this.props.game.self.user_id}</div>
 
+        return (
+
+            <List divided selection>
+                <List.Item>
+                <Label color='green' horizontal>
+                    {this.getPlayerTurnOrWinnerLable()}
+                </Label>
+                {this.getPlayerTurnIdOrWinner()}
+                </List.Item>
+                <List.Item>
+                <Label color='purple' horizontal>
+                    Self Id
+                </Label>
+                {this.props.game.self.user_id}
+                
                 <Board board={this.props.game.self.board} />
-
-                <span>Opponent</span>
-                <div>{this.props.game.opponent.user_id}</div>
-                <Board board={this.props.game.opponent.board} />
                 
-            </div>
+                </List.Item>
+                <List.Item>
+                <Label color='red' horizontal>
+                    Opponent Id
+                </Label>
+                {this.props.game.opponent.user_id}
 
+                <Board board={this.props.game.opponent.board} />
+
+                </List.Item>
+            </List>
             
         );
     }

@@ -6,13 +6,28 @@ export default class HorizontalMenu extends Component {
 
     state = {};
 
-    handleItemClick = (e, { name }) => this.setState({ activeItem: name });
+    handleItemClick = (e, { name }) => {
+      this.setState({ activeItem: name });
+      this.props.clearStateAction();
+      if (name === 'games') {
+        this.props.listGamesAction();
+      }
+    };
 
     render() {
         const { activeItem } = this.state;
     
         return (
           <Menu>
+            <Menu.Item
+              as={Link}
+              to='games'
+              name='games'
+              active={activeItem === 'games'}
+              onClick={this.handleItemClick}
+            >
+              Games
+            </Menu.Item>
             <Menu.Item
               as={Link}
               to='search'

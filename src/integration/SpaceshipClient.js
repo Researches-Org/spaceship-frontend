@@ -1,6 +1,39 @@
 const SPACESHIP_SERVICE_URL = 'http://localhost:8080/xl-spaceship/user/game/';
 
+function ensureOk(response) {
+    if (!response.ok) {
+        throw response;
+    }
+    return response;
+}
+
+function handleError(error, onError) {
+    if (error.json) {
+        error.json()
+            .then(e => onError({ message: e.message, error: e.error }))
+            .catch(ex => onError({ message: 'Error processing request', error: 'Error' }));
+    
+    } else {
+        onError({ message: error.message, error: error.stack });
+    }
+}
+
 export default class SpaceshipClient {
+
+    static listGames(onSuccess, onError) {
+        fetch(SPACESHIP_SERVICE_URL, {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+        })
+        .then(ensureOk)
+        .then((response) => response.json())
+        .then((responseJson) => {
+            onSuccess(responseJson);
+        })
+        .catch(error => handleError(error, onError));
+    }
 
     static getGame(gameId, onSuccess, onError) {
         fetch(SPACESHIP_SERVICE_URL + gameId, {
@@ -9,13 +42,12 @@ export default class SpaceshipClient {
                 'Content-Type': 'application/json',
             },
         })
+        .then(ensureOk)
         .then((response) => response.json())
         .then((responseJson) => {
             onSuccess(responseJson);
         })
-        .catch((error) => {
-            onError(error.stack);
-        });
+        .catch(error => handleError(error, onError));
     }
 
     static salvo(gameId, salvoCmd, onSuccess, onError) {
@@ -26,13 +58,12 @@ export default class SpaceshipClient {
             },
             body: JSON.stringify(salvoCmd)
         })
+        .then(ensureOk)
         .then((response) => response.json())
         .then((responseJson) => {
             onSuccess(responseJson);
         })
-        .catch((error) => {
-            onError(error.stack);
-        });
+        .catch(error => handleError(error, onError));
     }
 
     static challenge(challengeCmd, onSuccess, onError) {
@@ -43,13 +74,12 @@ export default class SpaceshipClient {
             },
             body: JSON.stringify(challengeCmd)
         })
+        .then(ensureOk)
         .then((response) => response.json())
         .then((responseJson) => {
             onSuccess(responseJson);
         })
-        .catch((error) => {
-            onError(error.stack);
-        });
+        .catch(error => handleError(error, onError));
     }
 
     static autopilot(gameId, onSuccess, onError) {
@@ -59,10 +89,9 @@ export default class SpaceshipClient {
                 'Content-Type': 'application/json',
             }
         })
+        .then(ensureOk)
         .then((response) => onSuccess())
-        .catch((error) => {
-            onError(error.stack);
-        });
+        .catch(error => handleError(error, onError));
     }
 
 }

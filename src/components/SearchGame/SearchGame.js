@@ -18,8 +18,16 @@ export default class SearchGame extends Component {
     };
 
     getGame = () => {
-        this.props.getGame(this.state.gameId);
-    };
+        this.props.getGameAction(this.state.gameId);
+    }
+
+    renderGame = () => {
+        if (this.props.error) {
+            return '';
+        }
+
+        return <Game game={this.props.game} />;
+    }
 
     render() {
         return (
@@ -38,7 +46,9 @@ export default class SearchGame extends Component {
                 >
                     Search Game
                 </Button>
-                <Game game={this.props.game} />
+
+                {this.renderGame()}
+                
             </Form>
         );
     }

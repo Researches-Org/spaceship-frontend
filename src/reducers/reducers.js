@@ -2,11 +2,14 @@ import {
     GET_GAME_SUCCEED,
     GET_GAME_FAILED,
     AUTOPILOT_GAME_FAILED,
+    AUTOPILOT_GAME_SUCCEED,
     CHALLENGE_SUCCEED,
     CHALLENGE_FAILED,
     SALVO_SUCCEED,
     SALVO_FAILED,
-    AUTOPILOT_GAME_SUCCEED,
+    CLEAR_STATE,
+    LIST_GAMES_SUCCEED,
+    LIST_GAMES_FAILED,
 } from '../actions/types';
 
 const initialState = () => {
@@ -14,6 +17,7 @@ const initialState = () => {
     game: null,
     salvoResponse: null,
     autopilotSuccessMessage: '',
+    games: [],
     error: null,
   };
 };
@@ -64,6 +68,19 @@ export const reducer = (state = initialState(), action) => {
                 ...state,
                 error: action.data,
             };
+        case LIST_GAMES_SUCCEED:
+            return {
+                ...state,
+                games: action.data,
+                error: null,
+            };
+        case LIST_GAMES_FAILED:
+            return {
+                ...state,
+                error: action.data,
+            };
+        case CLEAR_STATE:
+            return initialState();
         default:
             return state;
     }
