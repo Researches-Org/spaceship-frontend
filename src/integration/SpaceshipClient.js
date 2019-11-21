@@ -1,4 +1,4 @@
-const SPACESHIP_SERVICE_URL = 'http://192.168.15.7:8080/xl-spaceship/user/game/';
+const SPACESHIP_SERVICE_URL = 'http://192.168.15.7:' + process.env.REACT_APP_API_PORT + '/xl-spaceship/user/game/';
 
 function ensureOk(response) {
     if (!response.ok) {

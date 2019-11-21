@@ -80,8 +80,8 @@ export default class ShotSelection extends Component {
     renderSalvo = () => {
         if (this.props.salvoResponse) {
             return ( 
-                <Container>
-                    <Divider />
+                
+                <div>
 
                     <Label color='grey'>
                             Salvo Response
@@ -107,7 +107,8 @@ export default class ShotSelection extends Component {
                                     
                         </List.Item>   
                     </List>
-                </Container>
+                
+                </div>
                 
             );
             
@@ -120,7 +121,7 @@ export default class ShotSelection extends Component {
     render() {
         return (
 
-            <Container>
+            <div>
 
                 {this.renderSalvo()}
 
@@ -155,14 +156,14 @@ export default class ShotSelection extends Component {
                             <List.Item key={rowIndex}>
                                 {
                                     row.split('').map((character, columnIndex) => 
-                                        <Button style={{fontFamily: 'Courier New'}}
+                                        <Label style={{fontFamily: 'Courier New'}}
                                             size='mini'
                                             key={columnIndex} 
                                             disabled={this.disable(character)}
                                             color={this.getColorAtPosition(character, rowIndex, columnIndex)} 
                                             onClick={() => this.togglePosition(rowIndex, columnIndex)}>
                                             {rowIndex.toString(16).toUpperCase() + 'x' + columnIndex.toString(16).toUpperCase()}
-                                        </Button>    
+                                        </Label>    
                                     )
                                 }
 
@@ -171,7 +172,7 @@ export default class ShotSelection extends Component {
                     }
                 </List>
 
-            </Container>
+            </div>
 
             
         );
