@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { Label, List, Container, Button, Divider } from 'semantic-ui-react';
 import SalvoCmd from '../../commands/SalvoCmd';
-import SpaceshipUtil from '../../util/SpaceshipUtil';
 
 class Position {
 
@@ -149,38 +148,20 @@ export default class ShotSelection extends Component {
                 </List>
 
                 <List>
-                    <List.Item>
-                        
-                        <Button size='mini' disabled color='grey'>
-                            {'\\'}
-                        </Button>
-                        {
-                            SpaceshipUtil.getIndexes().map((c, i) => 
-                                <Button key={i} size='mini' disabled color='grey'>
-                                    {c}
-                                </Button>    
-                            )
-                        }
-                    </List.Item>
+                    
                     {
                         this.props.board.map((row, rowIndex) =>
                             
                             <List.Item key={rowIndex}>
-                                <Button 
-                                    size='mini'
-                                    disabled
-                                    color='grey'>
-                                    {rowIndex.toString(16).toUpperCase()}
-                                </Button>
                                 {
                                     row.split('').map((character, columnIndex) => 
-                                        <Button 
-                                            size='small'
+                                        <Button style={{fontFamily: 'Courier New'}}
+                                            size='mini'
                                             key={columnIndex} 
                                             disabled={this.disable(character)}
                                             color={this.getColorAtPosition(character, rowIndex, columnIndex)} 
                                             onClick={() => this.togglePosition(rowIndex, columnIndex)}>
-                                            {''}
+                                            {rowIndex.toString(16).toUpperCase() + 'x' + columnIndex.toString(16).toUpperCase()}
                                         </Button>    
                                     )
                                 }

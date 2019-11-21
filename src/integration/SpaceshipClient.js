@@ -1,4 +1,4 @@
-const SPACESHIP_SERVICE_URL = 'http://localhost:8080/xl-spaceship/user/game/';
+const SPACESHIP_SERVICE_URL = 'http://192.168.15.7:8080/xl-spaceship/user/game/';
 
 function ensureOk(response) {
     if (!response.ok) {

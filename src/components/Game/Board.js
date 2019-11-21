@@ -1,6 +1,5 @@
 import React, {Component} from 'react';
 import { Label, List, Container } from 'semantic-ui-react';
-import SpaceshipUtil from '../../util/SpaceshipUtil';
 
 export default class Board extends Component {
 
@@ -22,6 +21,18 @@ export default class Board extends Component {
         }
 
         throw new Error('Invalid board element ' + c);
+    }
+
+    renderIndex = (i) => {
+        if (i >= 10) {
+            return (
+                <span>{i.toString(16)}</span>
+            );
+        } else {
+            return (
+                <span>{i.toString(16)}</span>
+            );
+        }
     }
 
     render() {
@@ -48,30 +59,14 @@ export default class Board extends Component {
             </List>
 
             <List>
-                <List.Item>
-                    
-                    <Label size='large'>
-                        {'\\'}
-                    </Label>
-                    {
-                        SpaceshipUtil.getIndexes().map((c, i) => 
-                            <Label key={i} size='large'>
-                                {c}
-                            </Label>    
-                        )
-                    }
-                </List.Item>
                 {
                     this.props.board.map((row, index) =>
                     
                         <List.Item key={index}>
-                            <Label size='large'>
-                                {index.toString(16).toUpperCase()}
-                            </Label>
                             {
                                 row.split('').map((c, i) => 
-                                    <Label key={i} color={this.getColor(c)} size='big'>
-                                        {' '}
+                                    <Label key={i} color={this.getColor(c)} size='mini' style={{fontFamily: 'Courier New'}}>
+                                        {index.toString(16).toUpperCase() + 'x' + i.toString(16).toUpperCase()}
                                     </Label>    
                                 )
                             }
